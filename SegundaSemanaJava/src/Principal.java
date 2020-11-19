@@ -97,7 +97,7 @@ public class Principal {
                     }
                 break;
                 
-                //inserir nr registro para alteração
+                //alteração de um registro específico
                 case 3:
                     nrRegistro=lerValor("Informe o nr do registro para alteração:", sc, 0);
                     pessoas[nrRegistro-1]=adicionarValorArray(pessoas[nrRegistro-1], sc);
@@ -109,6 +109,7 @@ public class Principal {
                     int campoAlterado=lerValor("Qual opção deseja alterar", sc, 0);
                     pessoas[nrRegistro-1]=adicionarValorPessoa(pessoas[nrRegistro-1], sc, campoAlterado);
                 break;
+				
                 case 5:
                     //imprimir valores de um registro específico
                     nrRegistro=lerValor("Informe o nr do registro para imprimir valores:", sc, 0);
