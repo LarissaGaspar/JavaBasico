@@ -111,7 +111,7 @@ public class Principal {
                 break;
 				
                 case 5:
-                    //imprimir valores de um registro específico
+                    //imprimir todos os dados de um registro específico
                     nrRegistro=lerValor("Informe o nr do registro para imprimir valores:", sc, 0);
                     Pessoa pConsulta2=pessoas[nrRegistro-1];
                     if(pConsulta2!=null){

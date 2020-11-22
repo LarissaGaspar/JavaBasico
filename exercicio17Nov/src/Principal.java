@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import util.Leitor;
 
 /**
  * Principal
@@ -18,7 +19,7 @@ public class Principal {
     }
 
     public static void menu(Integer opcao, Livro[] livros, Scanner sc){
-        Integer nrRegistro=0;
+        Integer nrRegistro=0;//usa o scanner+usa dado para menu(inteiro)+recebe dado tipo arraylivro
     
         do{
             opcao=Leitor.lerValor("\n-----MENU-----\n0-Sair\n1-Listar todos os livros\n2-Cadastrar livro\n"+
@@ -28,7 +29,7 @@ public class Principal {
                 case 0:
                     System.out.println("Saindo...");
                     break;
-                //mostrar livros da lista
+                //mostrar todos livros da lista
                 case 1:
                     ControleDeLivros.imprimirLivros(livros);
                 break;
