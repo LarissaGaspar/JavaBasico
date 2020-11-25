@@ -1,0 +1,12 @@
+{
+    "java.dependency.packagePresentation": "hierarchical",
+
+    "java.project.referencedLibraries":{
+        "include":[
+        "lib/**/*.jar",
+        "c:\\Usuarios\\Arquivos de Programas\\MySQL\\mysql-connector-java-8.0.11\\mysql-connector-java-8.0.11.jar"
+        ]
+    }     
+    
+}
+
