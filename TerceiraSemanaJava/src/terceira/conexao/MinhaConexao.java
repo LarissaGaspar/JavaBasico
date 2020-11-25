@@ -3,6 +3,7 @@ package conexao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import com.mysql.cj.jdbc.Driver;
 import java.sql.Driver;
 
 
@@ -26,7 +27,7 @@ public class MinhaConexao {
             }
         }catch(Exception e){
             System.err.print(e.toString());
-        }finally{
+        } finally {
             return instance;
         }
     }
