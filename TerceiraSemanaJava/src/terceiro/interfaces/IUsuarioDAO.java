@@ -4,7 +4,7 @@ import java.util.List;
 
 import terceiro.models.Usuario;
 
-public class IUsuarioDAO {
+public interface IUsuarioDAO {
     
     Usuario buscarUsuario(Long id);
 	
@@ -17,4 +17,6 @@ public class IUsuarioDAO {
 	Integer deletarUsuario(Long id);
 		
 	Integer editarUsuario(Usuario u);
+
+	List<Usuario> buscarUsuariosPorParteDoNome(String nome);
 }

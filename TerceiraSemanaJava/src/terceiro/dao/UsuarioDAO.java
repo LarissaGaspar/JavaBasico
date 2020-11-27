@@ -36,37 +36,54 @@ public class UsuarioDAO implements IUsuarioDAO {
 	}
 
 	@Override
-	public Boolean verificarUsuarioESenha(String usuario, String senha) {
+	public List<Usuario> buscarUsuariosPorParteDoNome(String nome) {
+		List<Usuario> usuarios = new ArrayList<>();
 		try {
-			PreparedStatement ps = cn
-					.prepareStatement("SELECT * FROM tb_usuario where usr_usuario = ? and pwd_usuario = MD5(?)");
+			PreparedStatement ps = cn.prepareStatement("SELECT * FROM"
+			+ "tb_usuario where nme_usuario like CONCAT('%','a','%') ");
+			ps.setString(1, nome);
+			ResultSet rs = ps.executeQuery();
+			usuario = UsuarioParser.rsToListUsuario(rs);
+		} catch (Exception e) {
+			System.err.println(e.toString());
+		} finally {
+			return usuarios;
+		}
+	}
+
+	@Override
+	public Boolean verificarUsuarioESenha(String usuario, String senha) {
+		Boolean retorno=false;
+		
+		try {
+			PreparedStatement ps = cn.prepareStatement("SELECT * FROM tb_usuario where usr_usuario = ? and pwd_usuario = MD5(?)");
 			ps.setString(1, usuario);
 			ps.setString(2, senha);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				return true;
+				returno = true;
 			}
 		} catch (Exception e) {
 			System.err.println(e.toString());
 		} finally {
-			return false;
+			return retorno;
 		}
 	}
 
 	@Override
 	public Integer deletarUsuario(Long id) {
+		Integer i=0;
 		try {
 			this.cn.setAutoCommit(false);
 			PreparedStatement ps = cn.prepareStatement("DELETE FROM tb_usuario where idt  = ?");
 			ps.setLong(1, id);
-			Integer i = ps.executeUpdate();
+			i = ps.executeUpdate();
 			this.cn.commit();
-			return i;
 		} catch (Exception e) {
 			this.cn.rollback();
 			System.err.println(e.toString());
 		} finally {
-			return 0;
+			return i;
 		}
 	}
 
@@ -90,8 +107,7 @@ public class UsuarioDAO implements IUsuarioDAO {
 		Integer i = 0;
 		try {
 			this.cn.setAutoCommit(false);
-			PreparedStatement ps = cn
-					.prepareStatement("UPDATE tb_usuario set nme_usuario = ? , usr_usuario = ? where idt = ? ");
+			PreparedStatement ps = cn.prepareStatement("UPDATE tb_usuario set nme_usuario = ? , usr_usuario = ? where idt = ? ");
 			ps.setString(1, u.getNmeUsuario());
 			ps.setString(2, u.getUsrUsuario());
 			ps.setLong(3, u.getIdt());
@@ -113,9 +129,8 @@ public class UsuarioDAO implements IUsuarioDAO {
 
 			ResultSet keys = null;
 			this.cn.setAutoCommit(false);
-			PreparedStatement ps = cn.prepareStatement(
-					"INSERT into  tb_usuario(nme_usuario,usr_usuario,pwd_usuario)  " + " VALUES(?,?,MD5(?)) ",
-					RETURN_GENERATED_KEYS);
+			PreparedStatement ps = cn.prepareStatement("INSERT into  tb_usuario(nme_usuario,usr_usuario,pwd_usuario)  " + 
+			" VALUES(?,?,MD5(?)) ",	RETURN_GENERATED_KEYS);
 			ps.setString(1, u.getNmeUsuario());
 			ps.setString(2, u.getUsrUsuario());
 			ps.setString(3, senha);
